@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Pro-Audio
+GenericName=Pro Audio Bootstrap
+Comment=Starts pulse and routes it to jack
+Exec=/home/alex/bin/start_pulse_and_jack.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
