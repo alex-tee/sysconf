@@ -13,6 +13,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
+Plug 'lepture/vim-jinja'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-session'
 "Plug 'vim-scripts/OmniCppComplete'
@@ -59,8 +60,8 @@ set autoindent
 " use intelligent indentation for C
 set smartindent
 " configure tabwidth and insert spaces instead of tabs
-set tabstop=2        " tab width is 4 spaces
-set shiftwidth=2     " indent also with 4 spaces
+set tabstop=4        " tab width is 4 spaces
+set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 "set textwidth=120
@@ -206,6 +207,7 @@ set foldmethod=syntax
 set foldlevel=1
 set updatetime=100
 set clipboard^=unnamed
+set backspace=indent,eol,start  " more powerful backspacing
 
 
 "

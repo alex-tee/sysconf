@@ -1,9 +1,10 @@
 (use-modules (gnu))
-(use-service-modules desktop networking ssh xorg)
+(use-service-modules desktop networking ssh xorg virtualization)
 (use-modules (gnu packages bash))
 (use-modules (gnu packages shells))
 (use-modules (gnu packages linux))
 (use-modules (gnu services sound))
+(use-modules (gnu services vpn))
 (use-modules (guix) (gnu) (gnu services mcron))
 
 (define garbage-collector-job
@@ -71,10 +72,14 @@
                 (keyboard-layout keyboard-layout)))
 	    (pam-limits-service
 	      (list
-		      (pam-limits-entry "@audio" 'both 'rtprio 99)
-		      (pam-limits-entry "@audio" 'both 'memlock 'unlimited)))
+		(pam-limits-entry "@audio" 'both 'rtprio 99)
+		(pam-limits-entry "@audio" 'both 'memlock 'unlimited)))
+	    (service qemu-binfmt-service-type
+		     (qemu-binfmt-configuration
+		       (platforms (lookup-qemu-platforms "arm" "aarch64" "mips64el"))
+		       (guix-support? #t)))
 	    (service mcron-service-type
-        (mcron-configuration
-          (jobs (list garbage-collector-job
-					            borg-backup-job)))))
+       	      (mcron-configuration
+                (jobs (list garbage-collector-job
+                            borg-backup-job)))))
       %desktop-services)))

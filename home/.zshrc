@@ -1,9 +1,23 @@
-# If you come from bash you might have to change your $PATH.
- export PATH="$HOME/.config/guix/current/bin:$PATH"
- export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
-
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/alex/.oh-my-zsh"
+export ZSH="/home/alex/.oh-my-zsh"
+
+# Export Guix package paths (LV2_PATH, etc.)
+export_guix_search_paths() {
+    local lines=$(guix package --search-paths)
+
+    local IFS=$'\n'
+    if [ $ZSH_VERSION ]; then
+      setopt sh_word_split
+    fi
+
+    for line in $lines; do
+        expr $line
+    done
+}
+export_guix_search_paths
+
+export PATH="$HOME/.config/guix/current/bin:$PATH"
+export INFOPATH="$HOME/.config/guix/current/share/info:$INFOPATH"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
