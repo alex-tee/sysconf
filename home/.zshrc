@@ -96,7 +96,3 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-GUIX_PROFILE="/home/alex/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
-
