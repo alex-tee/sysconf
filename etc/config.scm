@@ -1,11 +1,10 @@
-(use-modules (gnu))
-(use-service-modules desktop networking ssh xorg virtualization)
-(use-modules (gnu packages bash))
-(use-modules (gnu packages shells))
-(use-modules (gnu packages linux))
-(use-modules (gnu services sound))
-(use-modules (gnu services vpn))
-(use-modules (guix) (gnu) (gnu services mcron))
+(use-modules (gnu)
+	     (guix)
+	     (gnu services mcron)
+	     (gnu system locale))
+(use-service-modules dbus sound vpn desktop networking ssh xorg
+		     shepherd virtualization)
+(use-package-modules audio bash shells linux glib)
 
 (define garbage-collector-job
   ;; Collect garbage 1 minutes after midnight every day.
@@ -20,8 +19,21 @@
 	  "~/bin/backup_system.sh"
          #:user "alex"))
 
+(define special-file-service
+  (service special-files-service-type
+	   `(("/bin/sh" ,(file-append bash "/bin/sh"))
+	     ("/bin/pwd" ,(file-append coreutils "/bin/pwd"))
+	     ("/bin/bash" ,(file-append bash "/bin/bash"))
+	     ("/lib64" ,(file-append glibc "/lib"))
+	     ("/usr/bin/env" ,(file-append coreutils "/bin/env")))))
+
 (operating-system
   (locale "en_GB.utf8")
+  (locale-definitions
+    (list (locale-definition (source "en_US")
+                             (name "en_US.UTF-8"))
+          (locale-definition (source "he_IL")
+                             (name "he_IL.UTF-8"))))
   (timezone "Europe/London")
   (keyboard-layout
     (keyboard-layout "us" "altgr-intl"))
@@ -60,7 +72,18 @@
                 %base-user-accounts))
   (packages
     (append
-      (list (specification->package "nss-certs"))
+      (map specification->package
+	   '("nss-certs" "glib" "vim" "zsh" "mpv" "pkg-config"
+	     "gnome-tweaks" "qjackctl" "util-linux" "alsa-plugins"
+	     "alsa-utils" "hexchat" "jack" "pelican"
+	     "pinentry-gnome3" "gnupg" "openssh" "rsync" "breeze-icons"
+	     "meson" "ninja" "redshift" "quaternion" "devhelp" "borg"
+	     "gcc-toolchain" "wget" "unzip" "openvpn" "tree" "autogen"
+	     "git" "libyaml" "alsa-lib" "gtk+" "libsndfile" "libsamplerate"
+	     "gettext" "fftw" "fftwf" "gdb" "calf" "curl" "zlib"
+	     "glibc-locales" "cairo" "help2man" "fontconfig" "pango" "suil"
+	     "ardour" "python" "lv2" "lilv" "serd" "sord" "gnome-screenshot"
+	     "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"))
       %base-packages))
   (services
     (append
@@ -70,14 +93,17 @@
             (set-xorg-configuration
               (xorg-configuration
                 (keyboard-layout keyboard-layout)))
+            ;; this service provides symlinks for programs in standard locations
+	    ;; (eg /bin/bash)
+	    (service special-files-service-type
+		     `(("/bin/sh" ,(file-append bash "/bin/sh"))
+		       ("/bin/pwd" ,(file-append coreutils "/bin/pwd"))
+		       ("/bin/bash" ,(file-append bash "/bin/bash"))
+		       ("/usr/bin/env" ,(file-append coreutils "/bin/env"))))
 	    (pam-limits-service
 	      (list
 		(pam-limits-entry "@audio" 'both 'rtprio 99)
 		(pam-limits-entry "@audio" 'both 'memlock 'unlimited)))
-	    (service qemu-binfmt-service-type
-		     (qemu-binfmt-configuration
-		       (platforms (lookup-qemu-platforms "arm" "aarch64" "mips64el"))
-		       (guix-support? #t)))
 	    (service mcron-service-type
        	      (mcron-configuration
                 (jobs (list garbage-collector-job

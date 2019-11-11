@@ -5,6 +5,25 @@ GUIX_PROFILE="/home/alex/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
 export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 
+# Deduplicate all known variables
+get_var () {
+    eval 'printf "%s\n" "${'"$1"'}"'
+}
+set_var () {
+    eval "$1=\"\$2\""
+}
+dedup_pathvar () {
+    pathvar_name="$1"
+    pathvar_value="$(get_var "$pathvar_name")"
+    deduped_path="$(perl -e 'print join(":",grep { not $seen{$_}++ } split(/:/, $ARGV[0]))' "$pathvar_value")"
+    set_var "$pathvar_name" "$deduped_path"
+}
+# loop through each known variable in env
+env -0 | while IFS='=' read -r -d '' n v; do
+    # $n is the key and $v is the value
+    dedup_pathvar "$n"
+done
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
