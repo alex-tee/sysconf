@@ -37,10 +37,11 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'vim-syntastic/syntastic'
 "Plug 'w0rp/ale'
 "Plug 'vim-scripts/a.vim'
-Plug 'w0ng/vim-hybrid'
+Plug 'w0ng/vim-hybrid' " theme
 "Plug 'NLKNguyen/papercolor-theme'
 "Plug 'tenfyzhong/vim-gencode-cpp'
 "Plug 'leafgarland/typescript-vim'
+Plug 'tikhomirov/vim-glsl'
 
 " Initialize plugin system
 call plug#end()
@@ -59,10 +60,17 @@ set termencoding=utf-8
 set autoindent
 " use intelligent indentation for C
 set smartindent
-" configure tabwidth and insert spaces instead of tabs
-set tabstop=4        " tab width is 4 spaces
+" insert spaces whenever <Tab> is pressed
+set expandtab
+" number of spaces to add when <Tab> is pressed
+set tabstop=2
 set shiftwidth=4     " indent also with 4 spaces
-set expandtab        " expand tabs to spaces
+
+" mark tab characters as 'T>'
+highlight SpecialKey ctermfg=1
+set list
+set listchars=tab:T>
+
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 "set textwidth=120
 " turn syntax highlighting on
@@ -92,19 +100,6 @@ let g:NERDTreeShowHidden=1 " show hidden files
 highlight link cMember Special
 "let g:easytags_dynamic_files = 1
 
-let g:NERDTreeIndicatorMapCustom = {
-  \ 'Modified'  : '✹',
-  \ 'Staged'    : '✚',
-  \ 'Untracked' : '✭',
-  \ 'Renamed'   : '➜',
-  \ 'Unmerged'  : '═',
-  \ 'Deleted'   : '✖',
-  \ 'Dirty'     : '✗',
-  \ 'Clean'     : '✔︎',
-  \ 'Ignored'   : '☒',
-  \ 'Unknown'   : '?'
-  \ }
-
 " vim.cpp
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -115,14 +110,6 @@ let g:cpp_concepts_highlight = 1
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
-
-"let g:syntastic_cpp_checkers = [ 'cppcheck', 'clang_check',  'clang_check', 'clang_tidy', 'cppclean', 'cpplint', 'flawfinder', 'gcc', 'oclint', 'pc_lint', 'verapp' ]
-"let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall -Wextra -Wpedantic'
-"let g:syntastic_cpp_clang_check_post_args = ""
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -163,8 +150,7 @@ map <C-F12> :!gentagsall<CR>
 "imap <Esc> <Esc><Esc><CR>
 vmap <Esc> <Esc><Esc><CR>
 "map <F2> :NERDTreeToggle<CR>
-"map <C-1> :NERDTreeToggle<CR>
-"map <F5> :call CurtineIncSw()<CR>
+
 nmap <F8> :TagbarToggle<CR>
 map <C-_> <Plug>NERDCommenterToggle<CR>
 map <Esc><Esc> :noh<CR>
@@ -179,12 +165,13 @@ nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [Q :<C-u>cfirst<CR>
 nnoremap ]Q :<C-u>clast<CR>
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nnoremap <silent> <C-Right> <c-w>l
-nnoremap <silent> <C-Left> <c-w>h
-nnoremap <silent> <C-Up> <c-w>k
-nnoremap <silent> <C-Down> <c-w>j
+
+" change windows with Ctrl + hjkl
+nnoremap <silent> <C-l> <c-w>l
+nnoremap <silent> <C-h> <c-w>h
+nnoremap <silent> <C-k> <c-w>k
+nnoremap <silent> <C-j> <c-w>j
+
 nmap j gj
 nmap k gk
 vmap j gj
@@ -207,10 +194,10 @@ set foldmethod=syntax
 set foldlevel=1
 set updatetime=100
 set clipboard^=unnamed
-set backspace=indent,eol,start  " more powerful backspacing
 
+" more powerful backspacing (deleting to prev line, etc.)
+set backspace=indent,eol,start
 
-"
 " The matchit plugin makes the % command work better, but it is not backwards
 " compatible.
 " The ! means the package won't be loaded right away but when plugins are
@@ -220,8 +207,6 @@ if has('syntax') && has('eval')
 endif
 
 " HTML indentation
-"
-
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 let g:html_indent_inctags = "address,article,aside,audio,blockquote,canvas,dd,div,dl,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,main,nav,noscript,ol,output,p,pre,section,table,tfoot,ul,video"
@@ -236,11 +221,13 @@ command GREPALLSRC :execute 'noautocmd vimgrep /'.expand('<cword>').'/j *.cpp **
 " FIXME only does one-way atm
 command ToggleIncludeType '<,'>s/"\(.\+\)"/<\1>/g
 
+" GNU style indentation for C/C++, with some customization
 function! GnuIndent()
-  setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+  setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(1s,u0,w1,m1
   setlocal shiftwidth=2
   setlocal tabstop=8
 endfunction
+au FileType c,cpp call GnuIndent()
 
 " disable unsafe commands in project-specific vimrc files
 set secure
@@ -248,19 +235,19 @@ command! -nargs=* Wrap set wrap linebreak nolist
 
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 au FileType * autocmd BufWritePre <buffer> %s/\s\+$//e " strip trailing whitespace on save
-au FileType c,cpp call GnuIndent()
 au FileType html setlocal nosmartindent
 au FileType xml,html,css,js,json,ts,ruby setlocal ts=2 sw=2 sts=2
 au FileType c,cpp setlocal ts=2 sw=2 sts=2
-autocmd VimEnter * NERDTree
 "au BufRead * Wrap
+
+" show the NERDTree when opening vim
+autocmd VimEnter * NERDTree
 
 " allow project specific vimrc's
 set exrc
 set secure
 
 " Put these lines at the very end of your vimrc file.
-
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall
