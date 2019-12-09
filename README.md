@@ -9,6 +9,8 @@ These files go under /etc
 These files go under /home/$USER
 
 # License
-CC0 1.0 Universal <https://creativecommons.org/publicdomain/zero/1.0/>
+CC0 1.0 Universal <https://creativecommons.org/publicdomain/zero/1.0/>.
+See the COPYING file for details.
+
 Some files, where specified, are licensed under different
 licenses.
