@@ -9,5 +9,6 @@ These files go under /etc
 These files go under /home/$USER
 
 # License
-Copyright (C) 2019 Alexandros Theodotou
-GNU AGPL, version 3 or later.
+CC0 1.0 Universal <https://creativecommons.org/publicdomain/zero/1.0/>
+Some files, where specified, are licensed under different
+licenses.
