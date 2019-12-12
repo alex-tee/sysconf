@@ -80,7 +80,7 @@
        "glibc-locales" "cairo" "help2man" "fontconfig" "pango" "suil"
        "ardour" "python" "lv2" "lilv" "serd" "sord" "gnome-screenshot"
        "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"
-       "qbittorrent" "zip" "jalv" "valgrind"
+       "qbittorrent" "zip" "jalv" "valgrind" "clang"
        "python-polib" "python-feedparser"))
       %base-packages))
   (services
