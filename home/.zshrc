@@ -24,6 +24,8 @@ env -0 | while IFS='=' read -r -d '' n v; do
     dedup_pathvar "$n"
 done
 
+LV2_PATH="$LV2_PATH:$GUIX_PROFILE/lib/lv2"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME

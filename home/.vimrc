@@ -64,7 +64,7 @@ set smartindent
 set expandtab
 " number of spaces to add when <Tab> is pressed
 set tabstop=2
-set shiftwidth=4     " indent also with 4 spaces
+set shiftwidth=2     " indent also with 4 spaces
 
 " mark tab characters as 'T>'
 highlight SpecialKey ctermfg=1

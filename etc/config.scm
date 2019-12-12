@@ -72,14 +72,16 @@
        "gnome-tweaks" "qjackctl" "util-linux" "alsa-plugins" "epiphany"
        "alsa-utils" "hexchat" "jack" "qemu" "pelican" "matcha-theme"
        "pinentry-gnome3" "gnupg" "openssh" "rsync" "breeze-icons"
-       "meson" "ninja" "redshift" "quaternion" "devhelp" "borg"
-       "gcc-toolchain" "wget" "unzip" "openvpn" "tree" "autogen"
+       "meson" "ninja" "redshift" "quaternion" "devhelp" "borg" "make"
+       "gcc-toolchain" "wget" "unzip" "openvpn" "tree" "autogen" "python-babel"
        "font-dejavu" "font-google-noto" "font-adobe-source-han-sans"
        "git" "libyaml" "alsa-lib" "libsndfile" "libsamplerate" "tmux"
-       "gettext" "fftw" "fftwf" "gdb" "calf" "curl" "zlib" "quaternion"
+       "gettext" "fftw" "fftwf" "gdb" "curl" "zlib" "quaternion"
        "glibc-locales" "cairo" "help2man" "fontconfig" "pango" "suil"
        "ardour" "python" "lv2" "lilv" "serd" "sord" "gnome-screenshot"
-       "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"))
+       "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"
+       "qbittorrent" "zip" "jalv" "valgrind"
+       "python-polib" "python-feedparser"))
       %base-packages))
   (services
     (append
