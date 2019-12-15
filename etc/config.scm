@@ -63,7 +63,7 @@
                   (home-directory "/home/alex")
                   (shell (file-append bash "/bin/bash"))
                   (supplementary-groups
-                    '("wheel" "kvm" "netdev" "audio" "video")))
+                    '("wheel" "libvirt" "kvm" "netdev" "audio" "video")))
                 %base-user-accounts))
   (packages
     (append
@@ -81,6 +81,8 @@
        "ardour" "python" "lv2" "lilv" "serd" "sord" "gnome-screenshot"
        "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"
        "qbittorrent" "zip" "jalv" "valgrind" "clang" "libvirt" "ibus-anthy"
+       "ibus" "doxygen" "bridge-utils" "youtube-dl" "ansible"
+       "python-libvirt"
        "virt-manager" "virt-viewer" "libosinfo" "inkscape" "gimp" "krita"
        "python-polib" "python-feedparser"))
       %base-packages))
@@ -89,6 +91,14 @@
       (list (service gnome-desktop-service-type)
             (service xfce-desktop-service-type)
             (service tor-service-type)
+      (service libvirt-service-type
+              (libvirt-configuration
+    (unix-sock-group "libvirt")
+    (log-level 2)
+    (tls-port "16555")))
+      (service virtlog-service-type
+        (virtlog-configuration
+    (max-clients 1000)))
             (set-xorg-configuration
               (xorg-configuration
                 (keyboard-layout keyboard-layout)))
