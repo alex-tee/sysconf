@@ -67,7 +67,7 @@
                 %base-user-accounts))
   (packages
     (append
-      (map specification->package
+      (map specification->package+output
      '("nss-certs" "vim" "zsh" "mpv" "pkg-config" "perl" "icecat"
        "gnome-tweaks" "qjackctl" "util-linux" "alsa-plugins" "epiphany"
        "alsa-utils" "hexchat" "jack" "qemu" "pelican" "matcha-theme"
@@ -81,9 +81,11 @@
        "ardour" "python" "lv2" "lilv" "serd" "sord" "gnome-screenshot"
        "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"
        "qbittorrent" "zip" "jalv" "valgrind" "clang" "libvirt" "ibus-anthy"
-       "ibus" "doxygen" "bridge-utils" "youtube-dl" "ansible"
-       "python-libvirt"
+       "ibus" "doxygen" "bridge-utils" "youtube-dl" "ansible" "python-sphinx-intl"
+       "python-libvirt" "imagemagick" "python-sphinx" "ghc-pandoc" "gtk+:doc"
        "virt-manager" "virt-viewer" "libosinfo" "inkscape" "gimp" "krita"
+       "texlive-bin" "texlive-pstool" "texlive" "glfw" "dconf-editor"
+       "pwgen" "xdg-utils"
        "python-polib" "python-feedparser"))
       %base-packages))
   (services
@@ -93,16 +95,16 @@
             (service tor-service-type)
       (service libvirt-service-type
               (libvirt-configuration
-    (unix-sock-group "libvirt")
-    (log-level 2)
-    (tls-port "16555")))
+                (unix-sock-group "libvirt")
+                (log-level 2)
+                (tls-port "16555")))
       (service virtlog-service-type
-        (virtlog-configuration
-    (max-clients 1000)))
-            (set-xorg-configuration
-              (xorg-configuration
-                (keyboard-layout keyboard-layout)))
-            ;; this service provides symlinks for programs in standard locations
+               (virtlog-configuration
+                 (max-clients 1000)))
+      (set-xorg-configuration
+        (xorg-configuration
+          (keyboard-layout keyboard-layout)))
+      ;; this service provides symlinks for programs in standard locations
       ;; (eg /bin/bash)
       (service special-files-service-type
          `(("/bin/sh" ,(file-append bash "/bin/sh"))
@@ -111,10 +113,10 @@
            ("/usr/bin/env" ,(file-append coreutils "/bin/env"))))
       (pam-limits-service
         (list
-    (pam-limits-entry "@audio" 'both 'rtprio 99)
-    (pam-limits-entry "@audio" 'both 'memlock 'unlimited)))
+          (pam-limits-entry "@audio" 'both 'rtprio 99)
+          (pam-limits-entry "@audio" 'both 'memlock 'unlimited)))
       (service mcron-service-type
                (mcron-configuration
-                (jobs (list garbage-collector-job
-                            borg-backup-job)))))
+                 (jobs (list garbage-collector-job
+                             borg-backup-job)))))
       %desktop-services)))
