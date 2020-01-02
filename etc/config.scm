@@ -30,12 +30,9 @@
 (operating-system
   (locale "en_GB.utf8")
   (locale-definitions
-    (list (locale-definition
-	    (name "en_GB.utf8") (source "en_GB"))
-	  (locale-definition
-	    (name "en_US.utf8") (source "en_US"))
-	  (locale-definition
-	    (name "ja_JP.utf8") (source "ja_JP"))))
+    (cons (locale-definition
+	    (name "ja_JP.utf8") (source "ja_JP"))
+	  %default-locale-definitions))
   (timezone "Europe/London")
   (keyboard-layout (keyboard-layout "us" "mac"))
   (bootloader
@@ -76,7 +73,8 @@
     (append
       (map specification->package+output
      '("nss-certs" "vim" "zsh" "util-linux"
-       "wget" "unzip" "tree"
+       "wget" "unzip" "tree" "gnome"
+       "font-dejavu" "font-abattis-cantarell"
        "curl" "openssl" "htop"))
       %base-packages))
   (services

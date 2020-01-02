@@ -26,6 +26,8 @@
    dconf-editor
    epiphany
    evolution
+   evolution-data-server
+   font-abattis-cantarell
    font-dejavu
    font-google-noto
    font-adobe-source-han-sans
@@ -36,6 +38,7 @@
    gnupg
    gcc-toolchain
    git
+   gettext
    gdb
    glibc-locales
    gnome-screenshot
