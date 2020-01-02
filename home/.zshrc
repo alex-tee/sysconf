@@ -117,3 +117,6 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias virt-viewer="remote-viewer"
+
+PATH="$PATH:/home/alex/.gem/ruby/2.5.0/bin"

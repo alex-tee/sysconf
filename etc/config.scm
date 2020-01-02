@@ -29,6 +29,13 @@
 
 (operating-system
   (locale "en_GB.utf8")
+  (locale-definitions
+    (list (locale-definition
+	    (name "en_GB.utf8") (source "en_GB"))
+	  (locale-definition
+	    (name "en_US.utf8") (source "en_US"))
+	  (locale-definition
+	    (name "ja_JP.utf8") (source "ja_JP"))))
   (timezone "Europe/London")
   (keyboard-layout (keyboard-layout "us" "mac"))
   (bootloader
@@ -68,25 +75,9 @@
   (packages
     (append
       (map specification->package+output
-     '("nss-certs" "vim" "zsh" "mpv" "pkg-config" "perl" "icecat"
-       "gnome-tweaks" "qjackctl" "util-linux" "alsa-plugins" "epiphany"
-       "alsa-utils" "hexchat" "jack" "qemu" "pelican" "matcha-theme"
-       "pinentry-gnome3" "gnupg" "openssh" "rsync" "breeze-icons"
-       "meson" "ninja" "redshift" "quaternion" "devhelp" "borg" "make"
-       "gcc-toolchain" "wget" "unzip" "openvpn" "tree" "autogen" "python-babel"
-       "font-dejavu" "font-google-noto" "font-adobe-source-han-sans"
-       "git" "libyaml" "alsa-lib" "libsndfile" "libsamplerate" "tmux"
-       "gettext" "fftw" "fftwf" "gdb" "curl" "zlib" "quaternion"
-       "glibc-locales" "cairo" "help2man" "fontconfig" "pango" "suil"
-       "ardour" "python" "lv2" "lilv" "serd" "sord" "gnome-screenshot"
-       "openssl" "htop" "mesa" "evolution" "network-manager-openvpn"
-       "qbittorrent" "zip" "jalv" "valgrind" "clang" "libvirt" "ibus-anthy"
-       "ibus" "doxygen" "bridge-utils" "youtube-dl" "ansible" "python-sphinx-intl"
-       "python-libvirt" "imagemagick" "python-sphinx" "ghc-pandoc" "gtk+:doc"
-       "virt-manager" "virt-viewer" "libosinfo" "inkscape" "gimp" "krita"
-       "texlive-bin" "texlive-pstool" "texlive" "glfw" "dconf-editor"
-       "pwgen" "xdg-utils"
-       "python-polib" "python-feedparser"))
+     '("nss-certs" "vim" "zsh" "util-linux"
+       "wget" "unzip" "tree"
+       "curl" "openssl" "htop"))
       %base-packages))
   (services
     (append
