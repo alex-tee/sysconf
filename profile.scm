@@ -29,6 +29,7 @@
    evolution-data-server
    font-abattis-cantarell
    font-dejavu
+   font-dseg
    font-google-noto
    font-adobe-source-han-sans
    fftw
@@ -40,8 +41,8 @@
    git
    gettext
    gdb
+   glib-with-documentation
    glibc-locales
-   gnome-screenshot
    ghc-pandoc
    gtk+
    gimp
@@ -61,11 +62,13 @@
    libyaml
    libsndfile
    libsamplerate
+   libreoffice
    lv2
    lilv
    libvirt
    libosinfo
    mpv
+   make
    matcha-theme
    meson
    mesa
@@ -81,6 +84,8 @@
    pinentry-gnome3
    python-babel
    pango
+   portaudio
+   portmidi
    python
    python-sphinx-intl
    python-libvirt
