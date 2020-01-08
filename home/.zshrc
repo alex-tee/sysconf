@@ -1,9 +1,8 @@
+# needed for guix autocomplete
+fpath=(/run/current-system/profile/share/zsh/site-functions/ $fpath)
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/alex/.oh-my-zsh"
-
-GUIX_PROFILE="/home/alex/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
-export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 
 # Deduplicate all known variables
 get_var () {
@@ -47,7 +46,7 @@ ZSH_THEME="af-magic"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13

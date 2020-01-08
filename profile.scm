@@ -124,4 +124,5 @@
    zlib
    zip
    ;; Use a specific package output.
-   (list gtk+ "doc")))
+   (list gtk+ "doc")
+   (list git "send-email")))
