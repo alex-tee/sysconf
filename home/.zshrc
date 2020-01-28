@@ -23,8 +23,8 @@ env -0 | while IFS='=' read -r -d '' n v; do
     dedup_pathvar "$n"
 done
 
-LV2_PATH="$GUIX_PROFILE/lib/lv2"
-VST_PATH="$GUIX_PROFILE/lib/vst"
+#LV2_PATH="$GUIX_PROFILE/lib/lv2"
+export VST_PATH="/home/alex/.guix-profile/lib/vst"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

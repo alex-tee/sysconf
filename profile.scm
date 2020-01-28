@@ -5,7 +5,8 @@
                      version-control web pulseaudio tmux algebra gdb curl gtk man
                      fontutils python rdf tls gl bittorrent valgrind llvm ibus
                      documentation sphinx imagemagick haskell-xyz spice inkscape
-                     gimp kde tex password-utils freedesktop code qt glib)
+                     gimp kde tex password-utils freedesktop code qt glib file
+                     libreoffice)
 
 (packages->manifest
  (list
@@ -14,6 +15,7 @@
    alsa-lib
    autogen
    ardour
+   audacity
    ansible
    breeze-icons
    borg
@@ -23,29 +25,30 @@
    clang
    devhelp
    doxygen
+   dos2unix
    dconf-editor
    epiphany
    evolution
    evolution-data-server
-   font-abattis-cantarell
    font-dejavu
    font-dseg
    font-google-noto
    font-adobe-source-han-sans
    fftw
    fftwf
+   file
    fontconfig
    gnome-tweaks
    gnupg
    gcc-toolchain
    git
-   gettext
+   ;gettext
    gdb
-   glib-with-documentation
+   ;glib-with-documentation
    glibc-locales
    ghc-pandoc
    gtk+
-   gimp
+   ;gimp
    glfw
    glibc
    hexchat
@@ -58,7 +61,7 @@
    inkscape
    jack-1
    jalv
-   krita
+   ;krita
    libyaml
    libsndfile
    libsamplerate
@@ -67,11 +70,13 @@
    lilv
    libvirt
    libosinfo
+   libxt
    mpv
-   make
+   ;make
    matcha-theme
    meson
    mesa
+   ;ncdu
    nss-certs
    ninja
    network-manager-openvpn
@@ -125,4 +130,5 @@
    zip
    ;; Use a specific package output.
    (list gtk+ "doc")
+   (list bind "utils")
    (list git "send-email")))
