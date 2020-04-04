@@ -1,3 +1,12 @@
+# allow bash completion
+autoload bashcompinit
+bashcompinit
+
+# source guix environment
+GUIX_PROFILE="/home/alex/.guix-profile"
+. "$GUIX_PROFILE/etc/profile"
+PATH="$HOME/.config/guix/current/bin:$PATH"
+
 # needed for guix autocomplete
 fpath=(/run/current-system/profile/share/zsh/site-functions/ $fpath)
 

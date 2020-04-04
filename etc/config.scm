@@ -10,7 +10,8 @@
   ;; Collect garbage 1 minutes after midnight every day.
   ;; The job's action is a shell command.
   #~(job "1 0 * * *"            ;Vixie cron syntax
-         "guix pull && guix upgrade && guix gc -F 1G"))
+         "guix pull && guix upgrade && guix gc -F 1G"
+         #:user "alex")) ; run as user
 
 (define borg-backup-job
   ;; Run the backup script 5 minutes after midnight every day
@@ -34,18 +35,18 @@
 	    (name "ja_JP.utf8") (source "ja_JP"))
 	  %default-locale-definitions))
   (timezone "Europe/London")
-  (keyboard-layout (keyboard-layout "us" "mac"))
+  (keyboard-layout
+    (keyboard-layout "us" "mac"))
   (bootloader
     (bootloader-configuration
-      (bootloader grub-efi-bootloader)
-      (target "/boot/efi")
+      (bootloader grub-bootloader)
+      (target "/dev/sda")
       (keyboard-layout keyboard-layout)))
-  (swap-devices (list "/dev/sda3"))
   (file-systems
     (cons* (file-system
-             (mount-point "/")
+             (mount-point "/boot")
              (device
-               (uuid "474736e5-18b3-446d-b080-7f1ee3049d29"
+               (uuid "313090d7-42c7-436a-b8b8-7ae92a1a69cd"
                      'ext4))
              (type "ext4"))
            (file-system
@@ -55,9 +56,11 @@
                      'ext4))
              (type "ext4"))
            (file-system
-             (mount-point "/boot/efi")
-             (device (uuid "6B6C-8FE5" 'fat32))
-             (type "vfat"))
+             (mount-point "/")
+             (device
+               (uuid "24b2d106-7133-4747-937a-2d999eed03c2"
+                     'ext4))
+             (type "ext4"))
            %base-file-systems))
   (host-name "alex-guix")
   (users (cons* (user-account

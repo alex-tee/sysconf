@@ -62,6 +62,7 @@
    jack-1
    jalv
    ;krita
+   lcov
    libyaml
    libsndfile
    libsamplerate
