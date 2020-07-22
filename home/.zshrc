@@ -6,6 +6,7 @@ bashcompinit
 GUIX_PROFILE="/home/alex/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
 PATH="$HOME/.config/guix/current/bin:$PATH"
+export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
 
 # needed for guix autocomplete
 fpath=(/run/current-system/profile/share/zsh/site-functions/ $fpath)
