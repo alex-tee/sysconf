@@ -236,6 +236,7 @@ command! -nargs=* Wrap set wrap linebreak nolist
 
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 au BufNewFile,BufRead *.j2.inc set filetype=jinja
+au BufNewFile,BufRead *.sh.inc set filetype=sh
 au FileType * autocmd BufWritePre <buffer> %s/\s\+$//e " strip trailing whitespace on save
 au FileType html setlocal nosmartindent
 au FileType xml,html,css,js,json,ts,ruby setlocal ts=2 sw=2 sts=2
