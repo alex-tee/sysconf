@@ -1,3 +1,6 @@
+;; This is an operating system configuration generated
+;; by the graphical installer.
+
 (use-modules (gnu)
        (guix)
        (gnu services mcron)
@@ -10,8 +13,7 @@
   ;; Collect garbage 1 minutes after midnight every day.
   ;; The job's action is a shell command.
   #~(job "1 0 * * *"            ;Vixie cron syntax
-         "guix pull && guix upgrade && guix gc -F 1G"
-         #:user "alex")) ; run as user
+         "guix pull && guix upgrade && guix gc -F 1G"))
 
 (define borg-backup-job
   ;; Run the backup script 5 minutes after midnight every day
@@ -20,20 +22,14 @@
     "~/bin/backup_system.sh"
          #:user "alex"))
 
-(define special-file-service
-  (service special-files-service-type
-     `(("/bin/sh" ,(file-append bash "/bin/sh"))
-       ("/bin/pwd" ,(file-append coreutils "/bin/pwd"))
-       ("/bin/bash" ,(file-append bash "/bin/bash"))
-       ("/lib64" ,(file-append glibc "/lib"))
-       ("/usr/bin/env" ,(file-append coreutils "/bin/env")))))
-
 (operating-system
   (locale "en_GB.utf8")
   (locale-definitions
-    (cons (locale-definition
-	    (name "ja_JP.utf8") (source "ja_JP"))
-	  %default-locale-definitions))
+    (cons* (locale-definition
+       (name "ja_JP.utf8") (source "ja_JP"))
+     (locale-definition
+       (name "gl_ES.utf8") (source "gl_ES"))
+     %default-locale-definitions))
   (timezone "Europe/London")
   (keyboard-layout
     (keyboard-layout "us" "mac"))
@@ -102,7 +98,14 @@
          `(("/bin/sh" ,(file-append bash "/bin/sh"))
            ("/bin/pwd" ,(file-append coreutils "/bin/pwd"))
            ("/bin/bash" ,(file-append bash "/bin/bash"))
+           ("/lib64" ,(file-append glibc "/lib"))
            ("/usr/bin/env" ,(file-append coreutils "/bin/env"))))
+      ;; this service authorizes substitute URLs
+      ;; (service guix-service-type
+      ;; (guix-configuration
+      ;; (substitute-urls
+      ;; (list "https://ci.guix.gnu.org"
+      ;;     "https://bayfront.guix.gnu.org/"))))
       (pam-limits-service
         (list
           (pam-limits-entry "@audio" 'both 'rtprio 99)
