@@ -36,6 +36,8 @@ done
 #LV2_PATH="$GUIX_PROFILE/lib/lv2"
 export VST_PATH="/home/alex/.guix-profile/lib/vst"
 export VST3_PATH="/home/alex/.guix-profile/lib/vst3"
+export LADSPA_PATH="/home/alex/.guix-profile/lib/ladspa"
+export DSSI_PATH="/home/alex/.guix-profile/lib/dssi"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

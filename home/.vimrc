@@ -3,7 +3,14 @@ scriptencoding utf-8
 " enable plugins
 filetype plugin on
 
-" Specify a directory for plugins
+" Auto-install vim-plug if not present
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Init vim-plug
 call plug#begin('~/.vim/plugged')
 
 "Plug 'Yggdroot/indentLine'
@@ -44,17 +51,17 @@ Plug 'w0ng/vim-hybrid' " theme
 Plug 'tikhomirov/vim-glsl'
 Plug 'HiPhish/guile.vim'
 
-" Initialize plugin system
+" Initialize plugin system.
 call plug#end()
 
 set background=dark
 colorscheme hybrid
 let g:solarized_termcolors=256
 
-" enable per-project configuration files
+" Enable per-project configuration files.
 set exrc
 
-" set UTF-8 encoding
+" Set UTF-8 encoding.
 set fileencoding=utf-8
 set termencoding=utf-8
 " use indentation of previous line
@@ -65,7 +72,7 @@ set smartindent
 set expandtab
 " number of spaces to add when <Tab> is pressed
 set tabstop=2
-set shiftwidth=2     " indent also with 4 spaces
+set shiftwidth=2 " indent also with 2 spaces
 
 " mark tab characters as 'T>'
 highlight SpecialKey ctermfg=1
