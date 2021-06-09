@@ -3,13 +3,13 @@ autoload bashcompinit
 bashcompinit
 
 # source guix environment
-GUIX_PROFILE="/home/alex/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
-PATH="$HOME/.config/guix/current/bin:$PATH"
-export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
+#GUIX_PROFILE="/home/alex/.guix-profile"
+#. "$GUIX_PROFILE/etc/profile"
+#PATH="$HOME/.config/guix/current/bin:$PATH"
+#export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
 
 # needed for guix autocomplete
-fpath=(/run/current-system/profile/share/zsh/site-functions/ $fpath)
+#fpath=(/run/current-system/profile/share/zsh/site-functions/ $fpath)
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/alex/.oh-my-zsh"
@@ -34,10 +34,11 @@ env -0 | while IFS='=' read -r -d '' n v; do
 done
 
 #LV2_PATH="$GUIX_PROFILE/lib/lv2"
-export VST_PATH="/home/alex/.guix-profile/lib/vst"
-export VST3_PATH="/home/alex/.guix-profile/lib/vst3"
-export LADSPA_PATH="/home/alex/.guix-profile/lib/ladspa"
-export DSSI_PATH="/home/alex/.guix-profile/lib/dssi"
+#export VST_PATH="/home/alex/.guix-profile/lib/vst"
+#export VST3_PATH="/home/alex/.guix-profile/lib/vst3"
+#export LADSPA_PATH="/home/alex/.guix-profile/lib/ladspa"
+#export DSSI_PATH="/home/alex/.guix-profile/lib/dssi"
+export LV2_PATH="/usr/lib/lv2:$HOME/local/lib/lv2:$HOME/.lv2"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -132,4 +133,7 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias virt-viewer="remote-viewer"
 
-PATH="$PATH:/home/alex/.gem/ruby/2.5.0/bin"
+PATH="$PATH:/home/alex/.gem/ruby/2.7.0/bin:/home/alex/.local/bin"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

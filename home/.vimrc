@@ -45,11 +45,14 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'w0rp/ale'
 "Plug 'vim-scripts/a.vim'
 Plug 'w0ng/vim-hybrid' " theme
+Plug 'joshdick/onedark.vim' " theme
 "Plug 'NLKNguyen/papercolor-theme'
 "Plug 'tenfyzhong/vim-gencode-cpp'
 "Plug 'leafgarland/typescript-vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'HiPhish/guile.vim'
+"Plug 'gko/vim-coloresque'
+Plug 'ap/vim-css-color'
 
 " Initialize plugin system.
 call plug#end()
@@ -241,6 +244,7 @@ au FileType c,cpp call GnuIndent()
 set secure
 command! -nargs=* Wrap set wrap linebreak nolist
 
+au BufNewFile,BufRead .clang-tidy set filetype=yaml
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 au BufNewFile,BufRead *.j2.inc set filetype=jinja
 au BufNewFile,BufRead *.sh.inc set filetype=sh
