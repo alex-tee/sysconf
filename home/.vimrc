@@ -53,6 +53,9 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'HiPhish/guile.vim'
 "Plug 'gko/vim-coloresque'
 Plug 'ap/vim-css-color'
+"Plug 'fatih/vim-go'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'gmoe/vim-faust'
 
 " Initialize plugin system.
 call plug#end()
@@ -247,7 +250,10 @@ command! -nargs=* Wrap set wrap linebreak nolist
 au BufNewFile,BufRead .clang-tidy set filetype=yaml
 au BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 au BufNewFile,BufRead *.j2.inc set filetype=jinja
+au BufNewFile,BufRead *.env.example set filetype=sh
 au BufNewFile,BufRead *.sh.inc set filetype=sh
+au BufNewFile,BufRead *.dsp.* set filetype=faust
+au BufNewFile,BufRead *.lib set filetype=faust
 au FileType * autocmd BufWritePre <buffer> %s/\s\+$//e " strip trailing whitespace on save
 au FileType html setlocal nosmartindent
 au FileType xml,html,css,js,json,ts,ruby setlocal ts=2 sw=2 sts=2
